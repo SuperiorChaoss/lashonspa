@@ -1,0 +1,691 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #f1f1f1;
+  background-color: #000;
+  line-height: 1.6;
+  padding-top: 60px; /* Prevent navbar from overlapping content on scroll; matches new navbar height */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure consistent horizontal padding on container elements */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+/* === NAVBAR CONTAINER (flex) === */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background:
+    /* a) color overlay with 0.4 opacity */
+    rgba(0, 0, 0, 0.4)
+    /* b) then the actual image */
+    url('images/your-nav-photo.jpg') center/cover no-repeat;
+  background-blend-mode: overlay;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  /* Remove fixed height—let padding drives the height instead */
+  height: auto;
+  min-height: 50px; /* ensure it never shrinks below 50px */
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;        /* vertically center contents */
+  justify-content: space-between;
+  padding: 0.5rem 2rem;       /* 0.5rem top/bottom, 2rem left/right */
+}
+
+/* Logo styling */
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  margin-right: auto;         /* ensure logo sticks to far left */
+}
+
+/* Nav links container */
+.nav-links {
+  display: flex;
+  gap: 1rem;                  /* tighter spacing */
+  margin-left: auto;          /* push links to the right */
+}
+
+.nav-links a {
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0.75rem 1.25rem;   /* maintain tappable size */
+}
+
+.nav-links a:hover {
+  color: #ffd700;
+  transform: translateY(-2px);
+}
+
+/* Hamburger (Mobile) */
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Mobile Dropdown */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    position: absolute;
+    top: 80px;                /* Matches new navbar height */
+    left: 0;
+    padding: 1rem 0;
+    z-index: 999;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .nav-links a {
+    padding: 0.75rem 2rem;
+    width: 100%;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Hero Section
+   ──────────────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 100vh;
+  background: url('images/hero.png') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn-primary {
+  background-color: #ffd700;
+  color: #000;
+}
+
+.btn-primary:hover {
+  background-color: #e6c200;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #ffd700;
+  color: #ffd700;
+  margin-top: 1rem;
+}
+
+.btn-secondary:hover {
+  background-color: #ffd700;
+  color: #000;
+}
+
+/* Section Headings */
+.section {
+  padding: 6rem 10% 4rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #ffd700;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Services Section */
+#services {
+  background: linear-gradient(
+    to bottom,
+    #d4af37 0%,    /* bright gold at top */
+    #433206 40%,   /* deeper gold in middle */
+    #000000 100%   /* pure black at bottom */
+  );
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Updated: On desktop, two-column layout:
+   • Left column (.left-col) contains .service-text + .button-wrapper
+   • Right column is .service-image
+   ──────────────────────────────────────────────────────────────────────────── */
+.service-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start; /* align top edges of each column */
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem; /* Ensure padding on small screens */
+  flex-direction: row; /* Default flex-row for desktop */
+}
+
+.left-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 400px; /* occupy up to 400px, shrink/grow as needed */
+}
+
+.service-text {
+  color: #f1f1f1;
+}
+
+.service-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #ffd700;
+}
+
+.service-text p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.service-list {
+  list-style: none;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+
+.service-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+
+.service-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #ffd700;
+}
+
+/* Button wrapper inside left-col, under the text */
+.button-wrapper {
+  margin-top: 1rem;       /* small gap above button */
+  display: flex;
+  justify-content: flex-start; /* left-align the button by default */
+}
+
+.button-wrapper .btn {
+  display: inline-block;
+}
+
+/* Right column: only the service-image */
+.service-image {
+  flex: 1 1 400px;        /* On desktop, image occupies up to 400px */
+  display: inline-block;  /* so its border-box hugs its contents */
+  padding: 3px;           /* space between photo edge & border */
+  background-color: #ffffff; /* white “border” */
+  border-radius: 8px;
+  box-sizing: border-box; /* include padding in width */
+}
+
+.service-image img {
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+  display: block;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Responsive Tweaks (below 768px)
+   • Stack: text → photo → button
+   • Shrink-wrap the image border, center everything
+
+   We use display:contents on .left-col so its children become direct flex-items
+   of .service-block, allowing us to set explicit orders.
+
+   ──────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .service-block {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Let .left-col’s children bubble up */
+  .left-col {
+    display: contents;
+  }
+
+  /* 1) Text first */
+  .service-text {
+    order: 1;
+    flex: 1 1 auto;
+    text-align: left;     /* keep bullet alignment on mobile */
+    padding: 0 0.5rem;    /* small side padding for readability */
+    margin: 0 auto;       /* center text block horizontally */
+    max-width: 90vw;      /* cap at 90% of viewport width */
+  }
+
+  /* 2) Photo second */
+  .service-image {
+    order: 2;             /* place photo below text */
+    flex: 0 0 auto;       /* shrink-wrap around the image */
+    width: auto;
+    max-width: 90vw;      /* cap at 90% of viewport width */
+    margin: 1rem auto;    /* center horizontally, with vertical spacing */
+    padding: 3px;         /* keep the white border */
+    background-color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  .service-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+  }
+
+  /* 3) Button last */
+  .button-wrapper {
+    order: 3;
+    flex: 0 0 auto;       /* shrink to the button’s width */
+    margin: 1rem auto;    /* center horizontally, with spacing */
+    width: 80%;           /* button spans ~80% of screen */
+  }
+  .button-wrapper .btn {
+    width: 100%;          /* make it fill its wrapper */
+  }
+}
+
+/* Further mobile tweaks (under 480px) */
+@media (max-width: 480px) {
+  /* 1) Keep hero image focused on center area, not its top edge */
+  .hero {
+    background-position: center 35%;
+  }
+
+  /* 2) Prevent section titles from breaking mid-phrase, and shrink slightly */
+  #testimonials .section-title,
+  #cta .section-title,
+  #services .section-title {
+    white-space: nowrap;
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  /* 3) Further tweak “Our Signature Service” to look a bit more intentional */
+  #services .section-title {
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+  }
+
+  /* Hero text scaling */
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  /* Adjust service-block inner text spacing and sizes */
+  .service-block {
+    padding: 1rem;
+  }
+  .service-text {
+    text-align: left;
+  }
+  .service-text h3 {
+    font-size: 1.2rem;
+  }
+  .service-text p {
+    font-size: 0.95rem;
+  }
+  .service-list li {
+    font-size: 0.9rem;
+  }
+
+  /* Button adjustments */
+  .btn {
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+  }
+  .btn-secondary {
+    margin-top: 1rem;
+    display: block;
+    width: 100%;
+  }
+}
+
+/* Gallery Section */
+.section-dark {
+  background-color: #000000;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.05);
+}
+
+/* Testimonials Section */
+#testimonials {
+  background-color: #000;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background-color: #1a1a1a;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.testimonial-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f1f1f1;
+  margin-bottom: 1.25rem;
+}
+
+.testimonial-author {
+  display: block;
+  font-weight: 700;
+  color: #ffd700;
+  font-size: 0.9rem;
+}
+
+/* Call-To-Action Section */
+#cta {
+  background-color: #222;
+  text-align: center;
+}
+
+.cta-text {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #ddd;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  background-color: #111;
+  color: #888;
+  padding: 2rem 10%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.footer-left p,
+.footer-right p {
+  margin-bottom: 0.5rem;
+}
+
+.footer-right a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+.footer-right a:hover {
+  text-decoration: underline;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Gallery “View All” Button
+   ──────────────────────────────────────────────────────────────────────────── */
+.gallery-button {
+  text-align: center;
+  margin-top: 2rem;          /* space above the button */
+}
+
+.gallery-button .btn {
+  /* We’re re‐using your existing button styles (btn + btn-secondary).
+     If you want slightly different colors or padding, tweak here. */
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   LOADING CURTAIN STYLES (with text between lines, 3-second animation)
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* ────────────────────────────────────────────────────────────────────────────
+   LOADING CURTAIN STYLES (two‐line text, centered, with extra spacing)
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* 1) Full‐screen overlay */
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff8dc; /* Pale gold background */
+  z-index: 2000;             /* Sit above everything else */
+  overflow: hidden;
+}
+
+/* 2) The two horizontal lines */
+.loading-line {
+  position: absolute;
+  height: 4px;               /* Thickness of each line */
+  background-color: #ffd700; /* Bright gold */
+}
+
+/* 2a) Top bar: now sits at 40% so there's room for two‐line text */
+.loading-line.top {
+  top: 40%;
+  left: 0;
+  width: 0;                  /* Start hidden (0 width) */
+  animation: slideInLTR 3s ease-out forwards;
+}
+
+/* 2b) Bottom bar: now sits at 60% */
+.loading-line.bottom {
+  top: 60%;
+  right: 0;
+  width: 0;                  /* Start hidden */
+  animation: slideInRTL 3s ease-out forwards;
+}
+
+/* 3) Keyframes (no change) */
+@keyframes slideInLTR {
+  to { width: 100%; }
+}
+@keyframes slideInRTL {
+  to { width: 100%; }
+}
+
+/* 4) Centered, two‐line text between the bars */
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;           /* Adjust as needed */
+  font-weight: 700;
+  color: #ffd700;            /* Gold text */
+  text-align: center;        /* Center both lines */
+  white-space: nowrap;       /* Prevent each line from breaking separately */
+
+  /* If you explicitly inserted a <br> in your HTML like:
+       <div class="loading-text">
+         Extravagant Unique<br>Designs
+       </div>
+     this text‐align/transform combo will center those two lines perfectly. */
+}
+
+/* 5) Fade‐out animation */
+#loading-overlay.fade-out {
+  animation: fadeOutOverlay 0.5s ease-in forwards;
+}
+@keyframes fadeOutOverlay {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ===== Booking Form Styles ===== */
+.booking-form {
+  display: grid;
+  gap: 20px;
+  max-width: 360px;
+  margin: 0 auto 80px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.booking-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+  color: #2e2e2e;
+}
+
+.booking-form input[type="text"],
+.booking-form input[type="email"],
+.booking-form input[type="time"],
+.booking-form .flatpickr-input {
+  margin-top: 6px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.booking-form input[type="text"]:focus,
+.booking-form input[type="email"]:focus,
+.booking-form input[type="time"]:focus,
+.booking-form .flatpickr-input:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(200,159,163,0.2);
+}
+
+/* Style the submit button to match .btn but full width */
+.booking-form button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #ffd700;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.booking-form button:hover {
+  background: #000000;
+}
